@@ -47,6 +47,7 @@ if ($mform->is_cancelled()) {
 
 } else if($mformdata = $mform->get_data()) {
     //In this case you process validated data. $mform->get_data() returns data posted in form.
+    echo 'foo';
 } else {
     // this branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed
     // or on the first display of the form.

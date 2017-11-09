@@ -55,10 +55,8 @@ class restriction_form extends \moodleform {
         // Hidden course ID.
         $mform->addElement('hidden', 'courseid');
         $mform->setType('courseid', PARAM_INT);
+        $mform->setDefault('courseid', $courseid);
 
-    }
-
-    public function definition_after_data() {
         // Action buttons.
         $this->add_action_buttons(true, get_string('savechanges'));
     }
