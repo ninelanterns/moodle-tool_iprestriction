@@ -15,15 +15,33 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin strings are defined here.
+ * IP restriction course configutation page.
  *
  * @package     tool_iprestriction
- * @category    string
  * @copyright   2017 Matt Porritt <mattp@catalyst-au.net>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+require_once(__DIR__ . '/../../../config.php');
+require_once(__DIR__.'/lib.php');
+
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'IP Restriction';
-$string['pluginnamedesc'] = 'Course IP Restriction configuration settings.';
+$contextid = required_param('contextid', PARAM_INT);
+$courseid = required_param('courseid', PARAM_INT);
+$context = context::instance_by_id($contextid, MUST_EXIST);
+
+
+$PAGE->set_context($context);
+$PAGE->set_url('/admin/tool/sentiment_forum/edit.php',
+        array('contextid' => $context->id, 'courseid' => $courseid)
+        );
+$PAGE->set_title(get_string('pluginname', 'tool_iprestriction'));
+$PAGE->set_heading(get_string('pluginname', 'tool_iprestriction'));
+
+require_login();
+
+// Output the whole shebang.
+echo $OUTPUT->header();
+// Some content goes here.
+echo $OUTPUT->footer();
