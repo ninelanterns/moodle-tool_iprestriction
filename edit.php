@@ -41,7 +41,24 @@ $PAGE->set_heading(get_string('pluginname', 'tool_iprestriction'));
 
 require_login();
 
-// Output the whole shebang.
-echo $OUTPUT->header();
-// Some content goes here.
-echo $OUTPUT->footer();
+$mform = new tool_iprestriction\restriction_form();
+
+if ($mform->is_cancelled()) {
+    redirect(new moodle_url('/course/view.php', array('id' => $courseid)));
+    exit();
+
+} else if($fromform = $mform->get_data()) {
+    //In this case you process validated data. $mform->get_data() returns data posted in form.
+} else {
+    // this branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed
+    // or on the first display of the form.
+
+    //Set default data (if any)
+    //$mform->set_data();
+
+    // Output the whole shebang.
+    echo $OUTPUT->header();
+    //displays the form
+    $mform->display();
+    echo $OUTPUT->footer();
+}
