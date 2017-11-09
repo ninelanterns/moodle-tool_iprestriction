@@ -27,11 +27,9 @@ require_once(__DIR__.'/lib.php');
 
 defined('MOODLE_INTERNAL') || die();
 
-$contextid = required_param('contextid', PARAM_INT);
 $courseid = required_param('courseid', PARAM_INT);
-$context = context::instance_by_id($contextid, MUST_EXIST);
 
-
+$context = \context_course::instance($courseid);
 $PAGE->set_context($context);
 $PAGE->set_url('/admin/tool/sentiment_forum/edit.php',
         array('contextid' => $context->id, 'courseid' => $courseid)
@@ -41,13 +39,13 @@ $PAGE->set_heading(get_string('pluginname', 'tool_iprestriction'));
 
 require_login();
 
-$mform = new tool_iprestriction\restriction_form();
+$mform = new tool_iprestriction\restriction_form(null, array('courseid' => $courseid));
 
 if ($mform->is_cancelled()) {
     redirect(new moodle_url('/course/view.php', array('id' => $courseid)));
     exit();
 
-} else if($fromform = $mform->get_data()) {
+} else if($mformdata = $mform->get_data()) {
     //In this case you process validated data. $mform->get_data() returns data posted in form.
 } else {
     // this branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed

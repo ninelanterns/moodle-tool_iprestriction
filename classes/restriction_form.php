@@ -41,6 +41,7 @@ class restriction_form extends \moodleform {
      */
     public function definition () {
         $mform = $this->_form;
+        $courseid = $this->_customdata['courseid'];
 
         $mform->addElement('static', 'formdescription', '', get_string('formdescription', 'tool_iprestriction'));
 
@@ -51,6 +52,13 @@ class restriction_form extends \moodleform {
         $mform->addElement('textarea', 'whitelistips', get_string('whitelistips', 'tool_iprestriction'), 'rows="10" cols="11"');
         $mform->addHelpButton('whitelistips', 'whitelistips', 'tool_iprestriction');
 
+        // Hidden course ID.
+        $mform->addElement('hidden', 'courseid');
+        $mform->setType('courseid', PARAM_INT);
+
+    }
+
+    public function definition_after_data() {
         // Action buttons.
         $this->add_action_buttons(true, get_string('savechanges'));
     }

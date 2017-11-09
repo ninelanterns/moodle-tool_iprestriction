@@ -42,7 +42,7 @@ function tool_iprestriction_extend_navigation_course($navigation, $course, $cont
     }
 
     $url = new moodle_url('/admin/tool/iprestriction/edit.php',
-            array('contextid' => $context->id, 'courseid' => $course->id)
+            array('courseid' => $course->id)
             );
     $pluginname = get_string('pluginname', 'tool_iprestriction');
 
