@@ -49,7 +49,7 @@ class restriction_manager {
         // Set cache object for restriction.
         $iparray = preg_split("/\r\n|\n|\r/", $record->ips);
         $cache = \cache::make('tool_iprestriction', 'restrictions');
-        $cache->set($record->course, 'value');
+        $cache->set($record->course, $iparray);
     }
 
     /**
@@ -70,6 +70,26 @@ class restriction_manager {
         }
 
         return $formdata;
+    }
+
+    /**
+     *
+     * @param unknown $courseid
+     * @return \stdClass
+     */
+    public function get_restriction($courseid, $ignorecache=false) {
+        global $DB;
+
+        $cache = \cache::make('tool_nla', 'values');
+        $ips = $cache->get($courseid);
+
+        if (!$ips|| $ignorecache) {
+            $record = $DB->get_field('tool_iprestriction', 'ips', array ('course' => $courseid));
+            $ips = preg_split("/\r\n|\n|\r/", $record);
+            $cache->set($courseid, $ips);
+        }
+
+        return $ips;
     }
 
     /**

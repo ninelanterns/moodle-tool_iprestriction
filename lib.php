@@ -58,7 +58,18 @@ function tool_iprestriction_extend_navigation_course($navigation, $course, $cont
  * @param unknown $setwantsurltome
  * @param unknown $preventredirect
  */
-function tool_iprestriction_after_require_login($courseorid, $autologinguest, $cm, $setwantsurltome, $preventredirect) {
-    // TODO: restriction functionality
+function tool_iprestriction_after_require_login($courseorid, $autologinguest=true, $cm=null, $setwantsurltome=true, $preventredirect=false) {
+    if (is_object($courseorid)) {
+        $courseid = $courseorid->id;
+    } else {
+        $courseid = $courseorid;
+    }
+
+    $manager = new \tool_iprestriction\restriction_manager();
+    $ips = $manager->get_restriction($courseid);
+
+    foreach ($ips as $ip) {
+
+    }
 }
 
