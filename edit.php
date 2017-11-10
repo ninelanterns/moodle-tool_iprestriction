@@ -39,25 +39,26 @@ $PAGE->set_heading(get_string('pluginname', 'tool_iprestriction'));
 
 require_login();
 
+$manager = new \tool_iprestriction\restriction_manager();
+$formdata = $manager->get_restriction($courseid);
 $mform = new tool_iprestriction\restriction_form(null, array('courseid' => $courseid));
+$mform->set_data($formdata);
 
 if ($mform->is_cancelled()) {
     redirect(new moodle_url('/course/view.php', array('id' => $courseid)));
     exit();
 
 } else if($mformdata = $mform->get_data()) {
-    //In this case you process validated data. $mform->get_data() returns data posted in form.
-    echo 'foo';
-} else {
-    // this branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed
-    // or on the first display of the form.
+    $manager->update_restriction($mformdata);
+    redirect(new moodle_url('/course/view.php', array('id' => $courseid)));
+    exit();
 
-    //Set default data (if any)
-    //$mform->set_data();
+} else {
+    // Executed if the form is submitted but the data doesn't validate and the form should be redisplayed
+    // or on the first display of the form.
 
     // Output the whole shebang.
     echo $OUTPUT->header();
-    //displays the form
-    $mform->display();
+    $mform->display(); //displays the form.
     echo $OUTPUT->footer();
 }

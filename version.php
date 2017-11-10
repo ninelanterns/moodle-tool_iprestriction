@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'tool_iprestriction';
-$plugin->release = '2017110905';
-$plugin->version = 2017110905;
+$plugin->release = '2017111001';
+$plugin->version = 2017111001;
 $plugin->requires = 2015051100;
 $plugin->maturity = MATURITY_ALPHA;

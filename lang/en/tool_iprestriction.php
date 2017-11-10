@@ -28,6 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['pluginname'] = 'IP Restriction';
 $string['pluginnamedesc'] = 'Course IP Restriction configuration settings.';
 
+$string['badip'] = 'The IP is {$a} invalid.';
 $string['enable'] = 'Enable';
 $string['enablerestriction'] = 'Enable IP Restriction';
 $string['enablerestriction_help'] = 'Enable (check) or disable (uncheck) IP whitelisting for this course';
