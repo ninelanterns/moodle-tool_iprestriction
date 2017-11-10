@@ -70,7 +70,16 @@ class restriction_form extends \moodleform {
      * @return array of errors.
      */
     public function validation($data, $files) {
-        $errors = parent::validation($data, $files);
+        $errors = array();
+        $ips = trim($data['whitelistips']);
+        $iparray = preg_split("/\r\n|\n|\r/", $ips);
+
+        foreach ($iparray as $ip){
+            if (!filter_var($ip, FILTER_VALIDATE_IP)){
+                $errors['whitelistips'] = get_string('badip', 'tool_iprestriction', $ip);
+                break;
+            }
+        }
 
         return $errors;
     }
