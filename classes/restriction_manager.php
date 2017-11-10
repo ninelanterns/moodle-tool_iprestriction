@@ -45,6 +45,11 @@ class restriction_manager {
         $record->timemodified = time();
 
         $this->restriction_upsert($record);
+
+        // Set cache object for restriction.
+        $iparray = preg_split("/\r\n|\n|\r/", $record->ips);
+        $cache = \cache::make('tool_iprestriction', 'restrictions');
+        $cache->set($record->course, 'value');
     }
 
     /**
@@ -52,7 +57,7 @@ class restriction_manager {
      * @param unknown $courseid
      * @return \stdClass
      */
-    public function get_restriction($courseid) {
+    public function get_restriction_form($courseid) {
         global $DB;
         $formdata = new \stdClass();
         $record = $DB->get_record('tool_iprestriction', array ('course' => $courseid));

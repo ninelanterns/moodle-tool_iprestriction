@@ -15,24 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin strings are defined here.
+ * IP restriction cache definitions.
  *
  * @package     tool_iprestriction
- * @category    string
+ * @category    caches
  * @copyright   2017 Matt Porritt <mattp@catalyst-au.net>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'IP Restriction';
-$string['pluginnamedesc'] = 'Course IP Restriction configuration settings.';
-
-$string['badip'] = 'The IP is {$a} invalid.';
-$string['cachedef_restrictions'] = 'IP restriction values cache';
-$string['enable'] = 'Enable';
-$string['enablerestriction'] = 'Enable IP Restriction';
-$string['enablerestriction_help'] = 'Enable (check) or disable (uncheck) IP whitelisting for this course';
-$string['formdescription'] = 'This form controls the IP restrcition settings for this course.';
-$string['whitelistips'] = 'IP Whitelist';
-$string['whitelistips_help'] = 'Enter the IP adresses that are allowed to access this course. One IP per line.';
+$definitions = array(
+    'restrictions' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => true,
+        'canuselocalstore' => false
+    ),
+);

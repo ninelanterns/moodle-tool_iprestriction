@@ -40,7 +40,7 @@ $PAGE->set_heading(get_string('pluginname', 'tool_iprestriction'));
 require_login();
 
 $manager = new \tool_iprestriction\restriction_manager();
-$formdata = $manager->get_restriction($courseid);
+$formdata = $manager->get_restriction_form($courseid);
 $mform = new tool_iprestriction\restriction_form(null, array('courseid' => $courseid));
 $mform->set_data($formdata);
 

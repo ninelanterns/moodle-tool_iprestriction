@@ -46,8 +46,6 @@ function tool_iprestriction_extend_navigation_course($navigation, $course, $cont
             );
     $pluginname = get_string('pluginname', 'tool_iprestriction');
 
-    // TODO: add capability check.
-
     // Add the configuration page link.
     $navigation->add($pluginname, $url, navigation_node::TYPE_SETTING, null, null, new pix_icon('i/settings', ''));
 }
