@@ -34,5 +34,6 @@ $string['enable'] = 'Enable';
 $string['enablerestriction'] = 'Enable IP Restriction';
 $string['enablerestriction_help'] = 'Enable (check) or disable (uncheck) IP whitelisting for this course';
 $string['formdescription'] = 'This form controls the IP restrcition settings for this course.';
+$string['ipblocked'] = 'access to this course has been restricted. Your IP address {$a} is not white listed.';
 $string['whitelistips'] = 'IP Whitelist';
 $string['whitelistips_help'] = 'Enter the IP adresses that are allowed to access this course. One IP per line.';

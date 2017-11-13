@@ -68,8 +68,8 @@ function tool_iprestriction_after_require_login($courseorid, $autologinguest=tru
     $manager = new \tool_iprestriction\restriction_manager();
     $ips = $manager->get_restriction($courseid);
 
-    foreach ($ips as $ip) {
-
+    if (!remoteip_in_list($ips)) {
+        print_error(get_string('ipblocked', 'tool_iprestriction', getremoteaddr(null)));
     }
 }
 
