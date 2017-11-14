@@ -51,12 +51,16 @@ function tool_iprestriction_extend_navigation_course($navigation, $course, $cont
 }
 
 /**
+ * Check if users IP is whitelisted for the course they are
+ * trying to access. Non whitelisted IPs receive an error.
+ * Does not apply to site administrators.
+ * Function is called by Moodle at the end of require_login().
  *
- * @param unknown $courseorid
- * @param string $autologinguest
- * @param unknown $cm
- * @param string $setwantsurltome
- * @param string $preventredirect
+ * @param object|integer $courseorid Course to check.
+ * @param bool $autologinguest Are guests automatically logged in.
+ * @param context $cm Context.
+ * @param string $setwantsurltome Requested URL.
+ * @param bool $preventredirect Stop Moodle redirects.
  */
 function tool_iprestriction_after_require_login(
         $courseorid,
@@ -64,15 +68,18 @@ function tool_iprestriction_after_require_login(
         $cm=null,
         $setwantsurltome=true,
         $preventredirect=false) {
+
     if (is_object($courseorid)) {
         $courseid = $courseorid->id;
     } else {
         $courseid = $courseorid;
     }
 
+    // Get whitelisted IPs for course.
     $manager = new \tool_iprestriction\restriction_manager();
     $ips = $manager->get_restriction($courseid);
 
+    // Check if user IP is in whitelist.
     if ($ips && !remoteip_in_list($ips)) {
         print_error(get_string('ipblocked', 'tool_iprestriction', getremoteaddr(null)));
     }
