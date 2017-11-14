@@ -48,17 +48,14 @@ if ($mform->is_cancelled()) {
     redirect(new moodle_url('/course/view.php', array('id' => $courseid)));
     exit();
 
-} else if($mformdata = $mform->get_data()) {
+} else if ($mformdata = $mform->get_data()) {
     $manager->update_restriction($mformdata);
     redirect(new moodle_url('/course/view.php', array('id' => $courseid)));
     exit();
 
 } else {
-    // Executed if the form is submitted but the data doesn't validate and the form should be redisplayed
-    // or on the first display of the form.
-
     // Output the whole shebang.
     echo $OUTPUT->header();
-    $mform->display(); //displays the form.
+    $mform->display();
     echo $OUTPUT->footer();
 }

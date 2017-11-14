@@ -24,6 +24,8 @@
 
 namespace tool_iprestriction;
 
+defined('MOODLE_INTERNAL') || die();
+
 require_once($CFG->dirroot.'/lib/formslib.php');
 
 /**
@@ -45,7 +47,7 @@ class restriction_form extends \moodleform {
 
         $mform->addElement('static', 'formdescription', '', get_string('formdescription', 'tool_iprestriction'));
 
-        $mform->addElement('advcheckbox', 'enablerestriction', get_string('enablerestriction', 'tool_iprestriction'), 
+        $mform->addElement('advcheckbox', 'enablerestriction', get_string('enablerestriction', 'tool_iprestriction'),
                 get_string('enable', 'tool_iprestriction'));
         $mform->addHelpButton('enablerestriction', 'enablerestriction', 'tool_iprestriction');
 
@@ -74,8 +76,8 @@ class restriction_form extends \moodleform {
         $ips = trim($data['whitelistips']);
         $iparray = preg_split("/\r\n|\n|\r/", $ips);
 
-        foreach ($iparray as $ip){
-            if (!filter_var($ip, FILTER_VALIDATE_IP)){
+        foreach ($iparray as $ip) {
+            if (!filter_var($ip, FILTER_VALIDATE_IP)) {
                 $errors['whitelistips'] = get_string('badip', 'tool_iprestriction', $ip);
                 break;
             }

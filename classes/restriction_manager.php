@@ -24,6 +24,8 @@
 
 namespace tool_iprestriction;
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
  * Manage course IP restrictions.
  *
@@ -62,7 +64,7 @@ class restriction_manager {
         $formdata = new \stdClass();
         $record = $DB->get_record('tool_iprestriction', array ('course' => $courseid));
 
-        if ($record){
+        if ($record) {
             $formdata->courseid = $record->course;
             $formdata->enablerestriction = $record->enabled;
             $formdata->whitelistips = $record->ips;
@@ -84,7 +86,7 @@ class restriction_manager {
         $ips = $cache->get($courseid);
         if (!$ips || $ignorecache) {
             $field = $DB->get_field('tool_iprestriction', 'ips', array ('course' => $courseid, 'enabled' => 1));
-            if ($field){
+            if ($field) {
                 $ips = trim($field);
                 $cache->set($courseid, $ips);
             }
@@ -105,7 +107,7 @@ class restriction_manager {
 
         // Try Update.
         $id = $DB->get_field('tool_iprestriction', 'id', array ('course' => $record->course));
-        if($id){
+        if ($id) {
             $record->id = $id;
             $DB->update_record('tool_iprestriction', $record);
         } else {

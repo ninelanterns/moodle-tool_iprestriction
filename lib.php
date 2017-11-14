@@ -58,7 +58,12 @@ function tool_iprestriction_extend_navigation_course($navigation, $course, $cont
  * @param string $setwantsurltome
  * @param string $preventredirect
  */
-function tool_iprestriction_after_require_login($courseorid, $autologinguest=true, $cm=null, $setwantsurltome=true, $preventredirect=false) {
+function tool_iprestriction_after_require_login(
+        $courseorid,
+        $autologinguest=true,
+        $cm=null,
+        $setwantsurltome=true,
+        $preventredirect=false) {
     if (is_object($courseorid)) {
         $courseid = $courseorid->id;
     } else {
