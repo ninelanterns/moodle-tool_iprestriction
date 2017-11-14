@@ -53,10 +53,10 @@ function tool_iprestriction_extend_navigation_course($navigation, $course, $cont
 /**
  *
  * @param unknown $courseorid
- * @param unknown $autologinguest
+ * @param string $autologinguest
  * @param unknown $cm
- * @param unknown $setwantsurltome
- * @param unknown $preventredirect
+ * @param string $setwantsurltome
+ * @param string $preventredirect
  */
 function tool_iprestriction_after_require_login($courseorid, $autologinguest=true, $cm=null, $setwantsurltome=true, $preventredirect=false) {
     if (is_object($courseorid)) {
@@ -68,7 +68,7 @@ function tool_iprestriction_after_require_login($courseorid, $autologinguest=tru
     $manager = new \tool_iprestriction\restriction_manager();
     $ips = $manager->get_restriction($courseid);
 
-    if (!remoteip_in_list($ips)) {
+    if ($ips && !remoteip_in_list($ips)) {
         print_error(get_string('ipblocked', 'tool_iprestriction', getremoteaddr(null)));
     }
 }

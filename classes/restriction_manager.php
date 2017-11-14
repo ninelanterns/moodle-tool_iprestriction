@@ -82,11 +82,12 @@ class restriction_manager {
 
         $cache = \cache::make('tool_nla', 'values');
         $ips = $cache->get($courseid);
-
-        if (!$ips|| $ignorecache) {
-            $record = $DB->get_field('tool_iprestriction', 'ips', array ('course' => $courseid));
-            $ips = preg_split("/\r\n|\n|\r/", $record);
-            $cache->set($courseid, $ips);
+        if (!$ips || $ignorecache) {
+            $field = $DB->get_field('tool_iprestriction', 'ips', array ('course' => $courseid, 'enabled' => 1));
+            if ($field){
+                $ips = trim($field);
+                $cache->set($courseid, $ips);
+            }
         }
 
         return $ips;
