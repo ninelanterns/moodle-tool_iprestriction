@@ -18,7 +18,6 @@
  * IP restriction cache definitions.
  *
  * @package     tool_iprestriction
- * @category    caches
  * @copyright   2017 Matt Porritt <mattp@catalyst-au.net>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

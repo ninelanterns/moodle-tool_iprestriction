@@ -36,8 +36,11 @@ defined('MOODLE_INTERNAL') || die();
 class restriction_manager {
 
     /**
+     * Update the course IP restriction in the
+     * database and cache.
      *
-     * @param unknown $data
+     * @param object $data Submitted mform data.
+     * @return void
      */
     public function update_restriction($data) {
         $record = new \stdClass();
@@ -46,6 +49,7 @@ class restriction_manager {
         $record->ips = trim($data->whitelistips);
         $record->timemodified = time();
 
+        // Save restriction in dbase.
         $this->restriction_upsert($record);
 
         // Set cache object for restriction.
@@ -55,9 +59,11 @@ class restriction_manager {
     }
 
     /**
+     * Gets the current course IP restrictions from the
+     * Moodle databse and return to form loader.
      *
-     * @param unknown $courseid
-     * @return \stdClass
+     * @param int $courseid Moodle course ID.
+     * @return \stdClass $formdata Returns data to populate mform
      */
     public function get_restriction_form($courseid) {
         global $DB;
@@ -75,9 +81,12 @@ class restriction_manager {
     }
 
     /**
+     * Get the current whitelisted IPs for a course,
+     * updates cache as required.
      *
-     * @param unknown $courseid
-     * @return \stdClass
+     * @param int $courseid Moodle course ID.
+     * @param bool $ignorecache Get from DB instead of cache on true.
+     * @return string $ips List of whitelisted IPS
      */
     public function get_restriction($courseid, $ignorecache=false) {
         global $DB;
