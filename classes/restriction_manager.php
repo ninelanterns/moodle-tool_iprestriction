@@ -53,8 +53,9 @@ class restriction_manager {
         $this->restriction_upsert($record);
 
         // Set cache object for restriction.
+        $iparray = array('enabled' => $record->enabled, 'ips' => $record->ips);
         $cache = \cache::make('tool_iprestriction', 'restrictions');
-        $cache->set($record->course, $record->ips);
+        $cache->set($record->course, $iparray);
     }
 
     /**
@@ -91,14 +92,22 @@ class restriction_manager {
         global $DB;
 
         $cache = \cache::make('tool_iprestriction', 'restrictions');
-        $ips = $cache->get($courseid);
-        if (!$ips || $ignorecache) {
+        $iparray = $cache->get($courseid);
+        $ips = '';
+        $enabled = 0;
+
+        if (empty($iparray)|| $ignorecache) {
             $field = $DB->get_field('tool_iprestriction', 'ips', array ('course' => $courseid, 'enabled' => 1));
             if ($field) {
                 $ips = trim($field);
-                $cache->set($courseid, $ips);
+                $enabled = 1;
             }
+        } else if ($iparray['enabled'] == 1) {
+            $ips = $iparray['ips'];
         }
+
+        $iparray = array('enabled' => $enabled, 'ips' => $ips);
+        $cache->set($courseid, $iparray);
 
         return $ips;
     }

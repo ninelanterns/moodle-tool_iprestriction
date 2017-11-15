@@ -103,4 +103,27 @@ class tool_iprestriction_testcase extends advanced_testcase {
         $this->assertEquals($data->whitelistips, $ips);
     }
 
+    /**
+     * Test getting IP restriction.
+     */
+    public function test_get_restriction_disabled() {
+        global $DB;
+        $this->resetAfterTest(true);
+
+        // Setup form data.
+        $data = new \stdClass();
+        $data->courseid = 1234;
+        $data->enablerestriction = 0;
+        $data->whitelistips = '127.0.0.1';
+
+        // Process restriction.
+        $manager = new restriction_manager();
+        $manager->update_restriction($data);
+
+        // Check result.
+        $ips = $manager->get_restriction($data->courseid);
+
+        $this->assertEquals('', $ips);
+    }
+
 }
