@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/catalyst/moodle-tool_iprestriction.svg?branch=master)](https://travis-ci.org/catalyst/moodle-tool_iprestriction)
+
 # IP Restriction
 
 This plugin restricts access to Moodle courses based on a users IP address. Users who do not have an allowed IP are shown an access denied error.
