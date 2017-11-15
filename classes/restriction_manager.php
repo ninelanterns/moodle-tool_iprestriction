@@ -91,7 +91,7 @@ class restriction_manager {
     public function get_restriction($courseid, $ignorecache=false) {
         global $DB;
 
-        $cache = \cache::make('tool_nla', 'values');
+        $cache = \cache::make('tool_iprestriction', 'values');
         $ips = $cache->get($courseid);
         if (!$ips || $ignorecache) {
             $field = $DB->get_field('tool_iprestriction', 'ips', array ('course' => $courseid, 'enabled' => 1));
