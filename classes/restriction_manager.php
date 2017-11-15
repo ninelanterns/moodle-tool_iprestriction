@@ -53,9 +53,8 @@ class restriction_manager {
         $this->restriction_upsert($record);
 
         // Set cache object for restriction.
-        $iparray = preg_split("/\r\n|\n|\r/", $record->ips);
         $cache = \cache::make('tool_iprestriction', 'restrictions');
-        $cache->set($record->course, $iparray);
+        $cache->set($record->course, $record->ips);
     }
 
     /**
