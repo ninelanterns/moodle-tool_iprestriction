@@ -27,10 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 
 use \tool_iprestriction\restriction_manager;
 
-global $CFG;
-require_once($CFG->dirroot . '/course/lib.php');
 
-class tool_nla_get_courses_testcase extends advanced_testcase {
+class tool_iprestriction_testcase extends advanced_testcase {
 
     /**
      * Test update IP restriction.
@@ -39,7 +37,7 @@ class tool_nla_get_courses_testcase extends advanced_testcase {
         global $DB;
         $this->resetAfterTest(true);
 
-        //Setup form data
+        // Setup form data.
         $data = new \stdClass();
         $data->courseid = 1234;
         $data->enablerestriction = 1;
@@ -64,7 +62,7 @@ class tool_nla_get_courses_testcase extends advanced_testcase {
         global $DB;
         $this->resetAfterTest(true);
 
-        //Setup form data
+        // Setup form data.
         $data = new \stdClass();
         $data->courseid = 1234;
         $data->enablerestriction = 1;
@@ -89,7 +87,7 @@ class tool_nla_get_courses_testcase extends advanced_testcase {
         global $DB;
         $this->resetAfterTest(true);
 
-        //Setup form data
+        // Setup form data.
         $data = new \stdClass();
         $data->courseid = 1234;
         $data->enablerestriction = 1;
