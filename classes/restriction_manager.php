@@ -104,6 +104,7 @@ class restriction_manager {
             }
         } else if ($iparray['enabled'] == 1) {
             $ips = $iparray['ips'];
+            $enabled = 1;
         }
 
         $iparray = array('enabled' => $enabled, 'ips' => $ips);
