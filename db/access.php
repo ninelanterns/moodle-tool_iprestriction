@@ -15,17 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * IP restriction capabilities.
  *
  * @package     tool_iprestriction
- * @copyright   2017 Matt Porritt <mattp@catalyst-au.net>
+ * @copyright   2018 Ilya Tregubov <ilyatregubov@catalyst-au.net>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->component = 'tool_iprestriction';
-$plugin->release = '2017115000';
-$plugin->version = 2017115001;
-$plugin->requires = 2015051100;
-$plugin->maturity = MATURITY_ALPHA;
+$capabilities = array(
+    'tool/iprestriction:manageiprestrictions' => array(
+        'captype'      => 'read',
+        'contextlevel' => CONTEXT_COURSE,
+        'archetypes' => array(
+            'teacher' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ),
+    ),
+);
