@@ -39,23 +39,27 @@ $PAGE->set_heading(get_string('pluginname', 'tool_iprestriction'));
 
 require_login();
 
-$manager = new \tool_iprestriction\restriction_manager();
-$formdata = $manager->get_restriction_form($courseid);
-$mform = new tool_iprestriction\restriction_form(null, array('courseid' => $courseid));
-$mform->set_data($formdata);
+if (has_capability('tool/iprestriction:manageiprestrictions', $context)) {
+    $manager = new \tool_iprestriction\restriction_manager();
+    $formdata = $manager->get_restriction_form($courseid);
+    $mform = new tool_iprestriction\restriction_form(null, array('courseid' => $courseid));
+    $mform->set_data($formdata);
 
-if ($mform->is_cancelled()) {
-    redirect(new moodle_url('/course/view.php', array('id' => $courseid)));
-    exit();
+    if ($mform->is_cancelled()) {
+        redirect(new moodle_url('/course/view.php', array('id' => $courseid)));
+        exit();
 
-} else if ($mformdata = $mform->get_data()) {
-    $manager->update_restriction($mformdata);
-    redirect(new moodle_url('/course/view.php', array('id' => $courseid)));
-    exit();
+    } else if ($mformdata = $mform->get_data()) {
+        $manager->update_restriction($mformdata);
+        redirect(new moodle_url('/course/view.php', array('id' => $courseid)));
+        exit();
 
+    } else {
+        // Output the whole shebang.
+        echo $OUTPUT->header();
+        $mform->display();
+        echo $OUTPUT->footer();
+    }
 } else {
-    // Output the whole shebang.
-    echo $OUTPUT->header();
-    $mform->display();
-    echo $OUTPUT->footer();
+    print_error('nopermissiontoshow');
 }

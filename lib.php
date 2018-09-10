@@ -37,7 +37,7 @@ function tool_iprestriction_extend_navigation_course($navigation, $course, $cont
     global $PAGE;
 
     // Only add this settings item on non-site course pages.
-    if (!$PAGE->course || $PAGE->course->id == SITEID) {
+    if (!$PAGE->course || $PAGE->course->id == SITEID || !has_capability('tool/iprestriction:manageiprestrictions', $context)) {
         return null;
     }
 
