@@ -4,6 +4,8 @@
 
 This plugin restricts access to Moodle courses based on a users IP address. Users who do not have an allowed IP are shown an access denied error.
 
+This is broadly similar to use an access condition but is a single setting that applies to the entire course, and not a single module.
+
 **Note:** This plugin does not block Moodle Administrators from accessing a course.
 
 ## Supported Moodle Versions
@@ -15,19 +17,23 @@ This plugin currently supports Moodle:
 * 3.4
 
 ## Prerequisites
-To work this plugin requires adding a new hook to Moodle core.
 
-This hook has not been implemented in core yet. The tracker for it is: `https://tracker.moodle.org/browse/MDL-60470`
-You will need to cherry pick the code in from the Moodle tracker into the `moodlelib.php` file of your instance, before you can install the plugin.
+To work this plugin requires adding a new callback `after_require_login` that was adding in Moodle 3.7
 
+https://tracker.moodle.org/browse/MDL-60470
+
+Priori to this you will need to cherry pick the code in from the Moodle tracker into the `moodlelib.php` file of your instance, before you can use this plugin.
 
 ## Installation
+
 To install this plugin in your Moodle.
+
 1. Ensure the steps in the *Prerequisite* section have been completed.
 2. Get the code and copy/ install it to: `<moodledir>/admin/tool/iprestriction`
 3. Run the upgrade: `sudo -u www-data php admin/cli/upgrade` **Note:** the user may be different to www-data on your system.
 
 ## Configuration
+
 To configure course level IP restriction.
 
 1. Log into your Moodle site as an administrator.
