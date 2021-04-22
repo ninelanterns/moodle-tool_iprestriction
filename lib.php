@@ -88,8 +88,11 @@ function tool_iprestriction_after_require_login(
 // This function is for Totara compatibility. The hook tool_iprestriction_after_require_login
 // have only Moodle function
 function tool_iprestriction_before_http_headers() {
-    global $COURSE, $SITE;
-    if (!empty($COURSE->id) && $COURSE->id!=$SITE->id) {
+    global $OUTPUT, $COURSE, $SITE;
+
+    if (!is_siteadmin() && !empty($COURSE->id) && $COURSE->id!=$SITE->id) {
+        echo $OUTPUT->header();
         tool_iprestriction_after_require_login($COURSE->id);
+        echo $OUTPUT->footer();
     }
 }
