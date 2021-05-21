@@ -88,11 +88,27 @@ function tool_iprestriction_after_require_login(
 // This function is for Totara compatibility. The hook tool_iprestriction_after_require_login
 // have only Moodle function
 function tool_iprestriction_before_http_headers() {
-    global $OUTPUT, $COURSE, $SITE;
+    global $PAGE, $OUTPUT, $COURSE, $SITE;
+    static $called = false;
+    if ($called) {
+        // this function is meant only to be called once
+        return;
+    }
 
+    $called = true;
     if (!is_siteadmin() && !empty($COURSE->id) && $COURSE->id!=$SITE->id) {
-        echo $OUTPUT->header();
-        tool_iprestriction_after_require_login($COURSE->id);
-        echo $OUTPUT->footer();
+        // Get whitelisted IPs for course.
+        $manager = new \tool_iprestriction\restriction_manager();
+        $ips = $manager->get_restriction($COURSE->id);
+
+        // Check if user IP is in whitelist.
+        if ($ips && !remoteip_in_list($ips)) {
+            $PAGE->set_pagelayout('frontpage');
+            echo $OUTPUT->header();
+            tool_iprestriction_after_require_login($COURSE->id);
+            $OUTPUT->notification(get_string('ipblocked', 'tool_iprestriction', getremoteaddr(null)), \core\output\notification::NOTIFY_ERROR);
+            echo $OUTPUT->footer();
+            exit;
+        }
     }
 }
